@@ -1,0 +1,51 @@
+while True:
+    word = input("Enter a word: ")
+
+    if word == "":
+        print("Program ended.")
+        break
+
+    onlySpaces = True
+    for ch in word:
+        if ch != " ":
+            onlySpaces = False
+    if onlySpaces:
+        print("Invalid input. Try again.")
+        continue
+
+    hasSpace = False
+    for ch in word:
+        if ch == " ":
+            hasSpace = True
+    if hasSpace:
+        print("Invalid input. Enter only one word.")
+        continue
+
+    hasNumber = False
+    for ch in word:
+        if ch >= '0' and ch <= '9':
+            hasNumber = True
+    if hasNumber:
+        print("Invalid input. No numbers allowed.")
+        continue
+
+    lowerWord = ""
+    for ch in word:
+        if ch >= 'A' and ch <= 'Z':
+            lowerWord += chr(ord(ch) + 32)
+        else:
+            lowerWord += ch
+
+    reverseWord = ""
+    index = len(lowerWord) - 1
+    while index >= 0:
+        reverseWord += lowerWord[index]
+        index -= 1
+
+    print("Forward:", lowerWord)
+    print("Reverse:", reverseWord)
+
+    if lowerWord == reverseWord:
+        print("It is a palindrome.\n")
+    else:
+        print("It is not a palindrome.\n")
