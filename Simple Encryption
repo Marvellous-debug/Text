@@ -1,0 +1,49 @@
+mode = input("Type 'e' to encrypt or 'd' to decrypt: ")
+
+while mode != "e" and mode != "d":
+    print("Invalid choice.")
+    mode = input("Type 'e' to encrypt or 'd' to decrypt: ")
+
+phrase = input("Enter the phrase: ")
+
+rotation = int(input("Enter rotation amount (1-25): "))
+
+while rotation < 1 or rotation > 25:
+    print("Invalid rotation amount.")
+    rotation = int(input("Enter rotation amount (1-25): "))
+
+lowerPhrase = ""
+for ch in phrase:
+    if ch >= 'A' and ch <= 'Z':
+        lowerPhrase += chr(ord(ch) + 32)
+    else:
+        lowerPhrase += ch
+
+result = ""
+
+for ch in lowerPhrase:
+    
+    if ch >= 'a' and ch <= 'z':
+        
+        position = ord(ch) - ord('a')
+        
+        if mode == "e":  
+            newPosition = position + rotation
+            if newPosition >= 26:
+                newPosition = newPosition - 26
+        
+        else: 
+            newPosition = position - rotation
+            if newPosition < 0:
+                newPosition = newPosition + 26
+        
+        newChar = chr(newPosition + ord('a'))
+        result += newChar
+    
+    else:
+        
+        result += ch
+
+
+print("Original phrase:", phrase)
+print("Result:", result)
