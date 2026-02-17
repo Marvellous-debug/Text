@@ -1,0 +1,57 @@
+passage = input("Enter a passage: ")
+
+search = input("Enter the word to search for: ")
+
+while search == "":
+    print("Search word cannot be empty.")
+    search = input("Enter the word to search for: ")
+
+lowerPassage = ""
+for ch in passage:
+    if ch >= 'A' and ch <= 'Z':
+        lowerPassage += chr(ord(ch) + 32)
+    else:
+        lowerPassage += ch
+
+lowerSearch = ""
+for ch in search:
+    if ch >= 'A' and ch <= 'Z':
+        lowerSearch += chr(ord(ch) + 32)
+    else:
+        lowerSearch += ch
+
+count = 0
+i = 0
+
+while i <= len(lowerPassage) - len(lowerSearch):
+    
+    match = True
+    j = 0
+    while j < len(lowerSearch):
+        if lowerPassage[i + j] != lowerSearch[j]:
+            match = False
+        j += 1
+    
+    if match:
+        beforeValid = False
+        if i == 0:
+            beforeValid = True
+        else:
+            beforeChar = lowerPassage[i - 1]
+            if not (beforeChar >= 'a' and beforeChar <= 'z'):
+                beforeValid = True
+        
+        afterValid = False
+        if i + len(lowerSearch) == len(lowerPassage):
+            afterValid = True
+        else:
+            afterChar = lowerPassage[i + len(lowerSearch)]
+            if not (afterChar >= 'a' and afterChar <= 'z'):
+                afterValid = True
+        
+        if beforeValid and afterValid:
+            count += 1
+    
+    i += 1
+
+print("The word appears", count, "time(s).")
