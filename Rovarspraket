@@ -1,0 +1,19 @@
+user_input = input("Enter a word: ")
+
+char_list = []
+for ch in user_input:
+    char_list.append(ch)
+
+vowels = "aeiouyAEIOUY"
+
+result = ""
+
+for ch in char_list:
+    if ch.isalpha() and ch not in vowels:
+
+        result += ch + "o" + ch
+    else:
+        # vowel or non-letter stays the same
+        result += ch
+
+print("Rovarspraket:", result)
