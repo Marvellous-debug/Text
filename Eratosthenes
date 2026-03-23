@@ -1,0 +1,20 @@
+n = int(input("Enter a number (>=2): "))
+
+numbers = []
+for i in range(2, n + 1):
+    numbers.append(i)
+
+for i in range(len(numbers)):
+    current = numbers[i]
+
+    if current == 0:
+        continue
+
+    for j in range(i + 1, len(numbers)):
+        if numbers[j] % current == 0:
+            numbers[j] = 0   # mark as not prime
+
+print("Prime numbers:")
+for num in numbers:
+    if num != 0:
+        print(num, end=" ")
