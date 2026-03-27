@@ -1,0 +1,24 @@
+colour_values = {
+    "black": 0,
+    "brown": 1,
+    "red": 2,
+    "orange": 3,
+    "yellow": 4,
+    "green": 5,
+    "blue": 6,
+    "violet": 7,
+    "grey": 8,
+    "white": 9
+}
+
+user_input = input("Enter three colours separated by hyphens: ")
+
+colours = tuple(user_input.lower().split("-"))
+
+first = colour_values[colours[0]]
+second = colour_values[colours[1]]
+third = colour_values[colours[2]]
+
+resistance = (first * 10 + second) * (10 ** third)
+
+print("Resistance:", resistance, "ohms")
