@@ -1,0 +1,60 @@
+import re
+
+def is_valid_postal_code(code):
+    code = code.replace(" ", "").upper() 
+    
+    if len(code) != 6:
+        return False
+    
+    if (code[0].isalpha() and code[1].isdigit() and
+        code[2].isalpha() and code[3].isdigit() and
+        code[4].isalpha() and code[5].isdigit()):
+        return True
+    
+    return False
+
+
+filename = "customers.txt"
+
+print("Current customer records:\n")
+
+try:
+    with open(filename, "r") as file:
+        content = file.read()
+        if content.strip() == "":
+            print("No customer data found.")
+        else:
+            print(content)
+except FileNotFoundError:
+    print("No file found. A new one will be created.")
+
+num = int(input("\nHow many customers would you like to add? "))
+
+with open(filename, "a") as file:
+    for i in range(num):
+        print(f"\nEntering data for customer {i + 1}")
+        
+        name = input("Enter name: ")
+        address = input("Enter address: ")
+        city = input("Enter city: ")
+        province = input("Enter province: ")
+        
+        while True:
+            postal_code = input("Enter postal code (L#L #L#): ")
+            if is_valid_postal_code(postal_code):
+                break
+            else:
+                print("Invalid postal code. Try again.")
+        
+        # Write to file
+        file.write(f"Name: {name}\n")
+        file.write(f"Address: {address}\n")
+        file.write(f"City: {city}\n")
+        file.write(f"Province: {province}\n")
+        file.write(f"Postal Code: {postal_code}\n")
+        file.write("-" * 30 + "\n")
+
+print("\nUpdated customer records:\n")
+
+with open(filename, "r") as file:
+    print(file.read())
