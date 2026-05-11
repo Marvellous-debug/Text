@@ -1,0 +1,26 @@
+def word_pyramid(word, width):
+
+    # Base case
+    if len(word) <= 2:
+        return word.center(width) + "\n"
+
+    # Recursive case
+    smaller = word[1:-1]
+
+    # Build pyramid from top to bottom
+    return (
+        word_pyramid(smaller, width)
+        + word.center(width)
+        + "\n"
+    )
+
+
+# Main program
+user_word = input("Enter a word: ")
+
+# Check if pyramid is possible
+if len(user_word) <= 2:
+    print("A pyramid cannot be formed.")
+else:
+    pyramid = word_pyramid(user_word, len(user_word))
+    print(pyramid)
