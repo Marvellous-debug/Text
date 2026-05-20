@@ -1,0 +1,59 @@
+# Parallel lists
+psalm_numbers = []
+psalm_titles = []
+
+# Open and read the file
+file = open("Psalms.txt", "r")
+
+# Read all lines from the file
+lines = file.readlines()
+
+# Close the file
+file.close()
+
+# Store data into parallel lists
+for i in range(0, len(lines), 2):
+
+    # Store Psalm number
+    number = int(lines[i].strip())
+    psalm_numbers.append(number)
+
+    # Store Psalm title
+    title = lines[i + 1].strip()
+    psalm_titles.append(title)
+
+
+# Binary search function
+def binary_search(numbers, target):
+
+    low = 0
+    high = len(numbers) - 1
+
+    while low <= high:
+
+        mid = (low + high) // 2
+
+        if numbers[mid] == target:
+            return mid
+
+        elif numbers[mid] < target:
+            low = mid + 1
+
+        else:
+            high = mid - 1
+
+    return -1
+
+
+# Ask the user for a Psalm number
+search_number = int(input("Enter a Psalm number: "))
+
+# Search for the Psalm
+position = binary_search(psalm_numbers, search_number)
+
+# Display result
+if position != -1:
+    print("Psalm Title:", psalm_titles[position])
+
+else:
+    print("Psalm not found.")
