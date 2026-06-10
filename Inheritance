@@ -1,0 +1,143 @@
+import random
+
+class Mammal:
+
+    def __init__(self, age, weight, gender):
+
+        self._age = age
+        self._weight = weight
+        self._gender = gender
+
+    def __str__(self):
+
+        return (
+            f"Age: {self._age} years\n"
+            f"Weight: {self._weight:.2f} kg\n"
+            f"Gender: {self._gender}\n"
+        )
+
+class Lemur(Mammal):
+
+    def __init__(self, age, weight, gender):
+
+        super().__init__(age, weight, gender)
+
+        self._location = "Madagascar"
+        self._fur = True
+        self._classification = "Prosimian"
+        self._female_role = "Dominant"
+
+    def __str__(self):
+
+        return (
+            super().__str__()
+            + f"Location: {self._location}\n"
+            + f"Has Fur: {self._fur}\n"
+            + f"Classification: {self._classification}\n"
+            + f"Female Role: {self._female_role}\n"
+        ) 
+
+class TreeLemur(Lemur):
+
+    def __init__(self, age, weight, gender):
+
+        super().__init__(age, weight, gender)
+
+        self._group_size = "Large Groups"
+        self._food = "Fruit"
+        self._coat = "Red"
+
+    def __str__(self):
+
+        return (
+            super().__str__()
+            + f"Group Behaviour: {self._group_size}\n"
+            + f"Diet: {self._food}\n"
+            + f"Coat Colour: {self._coat}\n"
+        ) 
+    
+class DesertLemur(Lemur):
+
+    def __init__(self, age, weight, gender):
+
+        super().__init__(age, weight, gender)
+
+        self._water_source = "Cacti"
+        self._coat = "White"
+        self._baby_survival = (
+            "Two-thirds die from cactus puncture wounds"
+        )
+
+    def __str__(self):
+
+        return (
+            super().__str__()
+            + f"Water Source: {self._water_source}\n"
+            + f"Coat Colour: {self._coat}\n"
+            + f"Baby Survival: {self._baby_survival}\n"
+        ) 
+    
+class JungleLemur(Lemur):
+
+    def __init__(self, age, weight, gender):
+
+        super().__init__(age, weight, gender)
+
+        self._coat = random.choice(["Black", "Blue"])
+        self._manes = True
+        self._diet = "Mice, Snails, Insects"
+
+    def __str__(self):
+
+        return (
+            super().__str__()
+            + f"Coat Colour: {self._coat}\n"
+            + f"Has Mane: {self._manes}\n"
+            + f"Diet: {self._diet}\n"
+        ) 
+    
+    import random
+
+lemurs = []
+
+amount = int(input("How many lemurs would you like to create? "))
+
+for i in range(amount):
+
+    print("\n1. Tree Lemur")
+    print("2. Desert Lemur")
+    print("3. Jungle Lemur")
+
+    choice = input("Choose type: ")
+
+    age = random.randint(0, 19)
+
+    weight = round(random.uniform(0.1, 9.0), 2)
+
+    gender = random.choice(["Male", "Female"])
+
+    if choice == "1":
+
+        lemur = TreeLemur(age, weight, gender)
+
+    elif choice == "2":
+
+        lemur = DesertLemur(age, weight, gender)
+
+    elif choice == "3":
+
+        lemur = JungleLemur(age, weight, gender)
+
+    else:
+
+        print("Invalid choice.")
+        continue
+
+    lemurs.append(lemur)
+
+print("\n----- LEMUR INFORMATION -----\n")
+
+for lemur in lemurs:
+
+    print(lemur)
+    print("---------------------")
