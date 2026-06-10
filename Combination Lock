@@ -1,0 +1,113 @@
+import random
+
+
+class CombinationLock:
+
+    def __init__(self):
+
+        self.__num1 = 1
+        self.__num2 = 1
+        self.__num3 = 1
+
+    # Set a custom combination
+    def set_combination(self, num1, num2, num3):
+
+        self.__num1 = num1
+        self.__num2 = num2
+        self.__num3 = num3
+
+    # Generate a random combination
+    def random_combination(self):
+
+        self.__num1 = random.randint(1, 3)
+        self.__num2 = random.randint(1, 3)
+        self.__num3 = random.randint(1, 3)
+
+    # Check if combination is correct
+    def open_lock(self, guess1, guess2, guess3):
+
+        if (guess1 == self.__num1 and
+            guess2 == self.__num2 and
+            guess3 == self.__num3):
+
+            return True
+
+        return False
+
+    # Show combination
+    def get_combination(self):
+
+        return self.__num1, self.__num2, self.__num3 
+
+
+def main():
+
+    lock = CombinationLock()
+
+    again = "yes"
+
+    while again.lower() == "yes":
+
+        print("\nCombination Lock")
+        print("1. Random Combination")
+        print("2. Set Your Own Combination")
+
+        choice = input("Enter choice: ")
+
+        # Random Combination
+        if choice == "1":
+
+            lock.random_combination()
+
+            combo = lock.get_combination()
+
+            print("\nRandom Combination Generated:")
+            print(combo)
+
+        # User Combination
+        elif choice == "2":
+
+            num1 = int(input("Enter first number (1-3): "))
+            num2 = int(input("Enter second number (1-3): "))
+            num3 = int(input("Enter third number (1-3): "))
+
+            lock.set_combination(num1, num2, num3)
+
+        else:
+
+            print("Invalid choice.")
+            continue
+
+        attempts = 0
+        opened = False
+
+        while attempts < 3 and not opened:
+
+            print("\nAttempt", attempts + 1)
+
+            guess1 = int(input("Enter first number: "))
+            guess2 = int(input("Enter second number: "))
+            guess3 = int(input("Enter third number: "))
+
+            if lock.open_lock(guess1, guess2, guess3):
+
+                print("Lock Opened!")
+                opened = True
+
+            else:
+
+                print("Incorrect Combination")
+                attempts += 1
+
+        if not opened:
+
+            print("\nThree incorrect guesses.")
+            print("Correct Combination:", lock.get_combination())
+
+        again = input("\nWould you like to try again? (yes/no): ")
+
+    print("Program Ended")
+
+
+if __name__ == "__main__":
+    main()
