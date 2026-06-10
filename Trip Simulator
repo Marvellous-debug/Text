@@ -1,0 +1,163 @@
+class Vehicle:
+
+    def __init__(self, gas_kilometrage, fuel_tank_size,
+                 fuel_available, kilometres_travelled,
+                 passengers, fare, fuel_cost):
+
+        self.__gas_kilometrage = gas_kilometrage
+        self.__fuel_tank_size = fuel_tank_size
+        self.__fuel_available = fuel_available
+        self.__kilometres_travelled = kilometres_travelled
+
+        self.__passengers = passengers
+        self.__fare = fare
+        self.__fuel_cost = fuel_cost
+
+    # Getters
+    def get_gas_kilometrage(self):
+        return self.__gas_kilometrage
+
+    def get_fuel_tank_size(self):
+        return self.__fuel_tank_size
+
+    def get_fuel_available(self):
+        return self.__fuel_available
+
+    def get_kilometres_travelled(self):
+        return self.__kilometres_travelled
+
+    def get_passengers(self):
+        return self.__passengers
+
+    def get_fare(self):
+        return self.__fare
+
+    def get_fuel_cost(self):
+        return self.__fuel_cost
+
+    # Add Fuel
+    def add_fuel(self, gas):
+
+        room = self.__fuel_tank_size - self.__fuel_available
+
+        if gas <= room:
+            self.__fuel_available += gas
+            print(f"Added {gas}L of fuel.")
+
+        else:
+            print(f"There is only room for {room}L.")
+            self.__fuel_available = self.__fuel_tank_size
+
+    # Drive Vehicle
+    def drive_vehicle(self, kms):
+
+        litres_needed = kms * (self.__gas_kilometrage / 100)
+
+        if self.__fuel_available >= litres_needed:
+
+            self.__fuel_available -= litres_needed
+            self.__kilometres_travelled += kms
+
+            print(f"Drove {kms} km.")
+
+        else:
+
+            kms_driven = self.__fuel_available / (self.__gas_kilometrage / 100)
+
+            self.__kilometres_travelled += kms_driven
+            self.__fuel_available = 0
+
+            print("Ran out of fuel!")
+
+    # Revenue
+    def calculate_revenue(self):
+        return self.__passengers * self.__fare
+
+    # Cost
+    def calculate_cost(self):
+
+        litres_used = self.__kilometres_travelled * (self.__gas_kilometrage / 100)
+
+        return litres_used * self.__fuel_cost
+
+    # Profit
+    def calculate_profit(self):
+
+        return self.calculate_revenue() - self.calculate_cost()
+
+    def __str__(self):
+
+        return (
+            f"\nGas Kilometrage: {self.__gas_kilometrage} L/100km\n"
+            f"Tank Size: {self.__fuel_tank_size} L\n"
+            f"Fuel Available: {self.__fuel_available:.2f} L\n"
+            f"Distance Travelled: {self.__kilometres_travelled:.2f} km\n"
+            f"Passengers: {self.__passengers}\n"
+            f"Fare: ${self.__fare:.2f}\n"
+            f"Fuel Cost: ${self.__fuel_cost:.2f}/L"
+        )
+
+
+def main():
+
+    print("Vehicle Trip Simulator")
+
+    gas_km = float(input("Enter fuel efficiency (L/100km): "))
+    tank_size = float(input("Enter fuel tank size (L): "))
+    fuel_available = float(input("Enter fuel available (L): "))
+    passengers = int(input("Enter number of passengers: "))
+    fare = float(input("Enter fare per passenger ($): "))
+    fuel_cost = float(input("Enter fuel cost per litre ($): "))
+
+    vehicle = Vehicle(
+        gas_km,
+        tank_size,
+        fuel_available,
+        0,
+        passengers,
+        fare,
+        fuel_cost
+    )
+
+    choice = ""
+
+    while choice != "3":
+
+        print("\n1. Drive")
+        print("2. Add Fuel")
+        print("3. End Trip")
+
+        choice = input("Enter choice: ")
+
+        if choice == "1":
+
+            kms = float(input("How many kilometres would you like to drive? "))
+            vehicle.drive_vehicle(kms)
+
+            print(vehicle)
+
+        elif choice == "2":
+
+            fuel = float(input("How many litres would you like to add? "))
+            vehicle.add_fuel(fuel)
+
+            print(vehicle)
+
+        elif choice == "3":
+
+            revenue = vehicle.calculate_revenue()
+            cost = vehicle.calculate_cost()
+            profit = vehicle.calculate_profit()
+
+            print("\nTrip Summary")
+            print("Revenue: $", round(revenue, 2))
+            print("Cost: $", round(cost, 2))
+            print("Profit: $", round(profit, 2))
+
+        else:
+
+            print("Invalid Choice")
+
+
+if __name__ == "__main__":
+    main()
