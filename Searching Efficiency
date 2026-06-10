@@ -1,0 +1,118 @@
+import random
+import time
+
+
+# Linear Search
+def linear_search(numbers, target):
+
+    loops = 0
+    comparisons = 0
+
+    start = time.perf_counter()
+
+    for i in range(len(numbers)):
+        loops += 1
+        comparisons += 1
+
+        if numbers[i] == target:
+            end = time.perf_counter()
+            return loops, comparisons, (end - start) * 1000
+
+    end = time.perf_counter()
+    return loops, comparisons, (end - start) * 1000
+
+
+# Sorted Linear Search
+def sorted_linear_search(numbers, target):
+
+    loops = 0
+    comparisons = 0
+
+    start = time.perf_counter()
+
+    for i in range(len(numbers)):
+        loops += 1
+        comparisons += 1
+
+        if numbers[i] == target:
+            end = time.perf_counter()
+            return loops, comparisons, (end - start) * 1000
+
+        comparisons += 1
+        if numbers[i] > target:
+            break
+
+    end = time.perf_counter()
+    return loops, comparisons, (end - start) * 1000
+
+
+# Binary Search
+def binary_search(numbers, target):
+
+    loops = 0
+    comparisons = 0
+
+    low = 0
+    high = len(numbers) - 1
+
+    start = time.perf_counter()
+
+    while low <= high:
+
+        loops += 1
+
+        mid = (low + high) // 2
+
+        comparisons += 1
+        if numbers[mid] == target:
+            end = time.perf_counter()
+            return loops, comparisons, (end - start) * 1000
+
+        comparisons += 1
+        if numbers[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    end = time.perf_counter()
+    return loops, comparisons, (end - start) * 1000
+
+
+# Main Program
+
+amount = int(input("How many random numbers? "))
+target = int(input("What number would you like to search for? "))
+
+numbers = []
+
+for i in range(amount):
+    numbers.append(random.randint(0, 1000))
+
+print("\nOriginal List:")
+print(numbers)
+
+sorted_numbers = sorted(numbers)
+
+# Linear Search
+linear_loops, linear_comp, linear_time = linear_search(numbers, target)
+
+# Sorted Linear Search
+sorted_loops, sorted_comp, sorted_time = sorted_linear_search(sorted_numbers, target)
+
+# Binary Search
+binary_loops, binary_comp, binary_time = binary_search(sorted_numbers, target)
+
+print("\nLinear Search")
+print("Loops:", linear_loops)
+print("Comparisons:", linear_comp)
+print("Time (ms):", round(linear_time, 3))
+
+print("\nSorted Linear Search")
+print("Loops:", sorted_loops)
+print("Comparisons:", sorted_comp)
+print("Time (ms):", round(sorted_time, 3))
+
+print("\nBinary Search")
+print("Loops:", binary_loops)
+print("Comparisons:", binary_comp)
+print("Time (ms):", round(binary_time, 3))
