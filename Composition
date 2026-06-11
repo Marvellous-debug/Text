@@ -1,0 +1,73 @@
+class Dog:
+
+    def __init__(self, name, breed, age):
+
+        self.__name = name
+        self.__breed = breed
+        self.__age = age
+
+    def get_name(self):
+        return self.__name
+
+    def __str__(self):
+
+        return (
+            f"Name: {self.__name}\n"
+            f"Breed: {self.__breed}\n"
+            f"Age: {self.__age}"
+        ) 
+
+class AnimalShelter:
+
+    MAX_DOGS = 10
+
+    def __init__(self):
+
+        self.__dogs = []
+
+    def add_dog(self, dog):
+
+        if len(self.__dogs) < AnimalShelter.MAX_DOGS:
+
+            self.__dogs.append(dog)
+
+            print("Dog added successfully.")
+
+        else:
+
+            print("Shelter is full.")
+
+    def remove_dog(self, name):
+
+        if len(self.__dogs) == 0:
+
+            print("No dogs in shelter.")
+            return
+
+        for dog in self.__dogs:
+
+            if dog.get_name().lower() == name.lower():
+
+                self.__dogs.remove(dog)
+
+                print("Dog removed.")
+                return
+
+        print("Dog not found.")
+
+    def display_dogs(self):
+
+        if len(self.__dogs) == 0:
+
+            print("No dogs in shelter.")
+
+        else:
+
+            for dog in self.__dogs:
+
+                print(dog)
+                print("----------------")
+
+    def calculate_cost(self):
+
+        return len(self.__dogs) * 15
