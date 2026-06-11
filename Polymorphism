@@ -1,0 +1,84 @@
+from abc import ABC, abstractmethod
+
+
+class Conveyance(ABC):
+
+    def __init__(self, fuel_efficiency):
+
+        self._fuel_efficiency = fuel_efficiency
+
+    @abstractmethod
+    def calcDistance(self, litres):
+        pass
+
+
+class Truck(Conveyance):
+
+    def __init__(self):
+
+        super().__init__(14.1)
+
+    def calcDistance(self, litres):
+
+        return litres / (self._fuel_efficiency / 100)
+
+
+class Car(Conveyance):
+
+    def __init__(self):
+
+        super().__init__(9.4)
+
+    def calcDistance(self, litres):
+
+        return litres / (self._fuel_efficiency / 100) 
+    
+class HybridCar(Conveyance):
+
+    def __init__(self):
+
+        super().__init__(3.8)
+
+    def calcDistance(self, litres):
+
+        return litres / (self._fuel_efficiency / 100)
+
+
+class Motorcycle(Conveyance):
+
+    def __init__(self):
+
+        super().__init__(5.0)
+
+    def calcDistance(self, litres):
+
+        return litres / (self._fuel_efficiency / 100)
+
+
+def main():
+
+    fuel = float(input("Enter amount of fuel (L): "))
+
+    vehicles = [
+        Truck(),
+        Car(),
+        HybridCar(),
+        Motorcycle()
+    ]
+
+    print("\nDistance Travelled")
+
+    for vehicle in vehicles:
+
+        distance = vehicle.calcDistance(fuel)
+
+        print(
+            vehicle.__class__.__name__,
+            "-",
+            round(distance, 2),
+            "km"
+        )
+
+
+if __name__ == "__main__":
+    main()
