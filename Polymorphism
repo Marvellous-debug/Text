@@ -48,7 +48,7 @@ class Motorcycle(Conveyance):
 
     def __init__(self):
 
-        super().__init__(5.0)
+        super().__init__(6.3)
 
     def calcDistance(self, litres):
 
